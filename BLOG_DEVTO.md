@@ -3,8 +3,8 @@ title: Turning Solo AI Coding Agents into 24/7 Incident Teammates: Building Swit
 published: true
 description: How we built an autonomous multi-agent incident war room for Slack, Teams, and Discord using Switch and Wispr Flow for the Flip the Switch Hackathon.
 tags: devops, ai, opensource, productivity
-cover_image: https://raw.githubusercontent.com/your-username/switchops/main/switchops_showcase.jpg
-canonical_url: https://dev.to/your-username/turning-solo-ai-coding-agents-into-247-incident-teammates
+cover_image: https://raw.githubusercontent.com/BishtNikhil/switchops/main/switchops_showcase.jpg
+canonical_url: https://dev.to/nikhil_bisht_a8b58d0cb04a/turning-solo-ai-coding-agents-into-247-incident-teammates-building-switchops-with-switch-55bl
 ---
 
 # Turning Solo AI Coding Agents into 24/7 Incident Teammates: Building SwitchOps with Switch
@@ -13,7 +13,16 @@ canonical_url: https://dev.to/your-username/turning-solo-ai-coding-agents-into-2
 
 ---
 
-![SwitchOps War Room Showcase](./switchops_showcase.jpg)
+### ⚡ Quick Project Links & Demo:
+- 🚀 **Live Interactive Deployment:** [switchops-mocha.vercel.app](https://switchops-mocha.vercel.app)
+- 🎥 **2-Minute Demo Video:** [youtu.be/AKnywbFaUkQ](https://youtu.be/AKnywbFaUkQ)
+- 💻 **Open-Source GitHub Repository:** [github.com/BishtNikhil/switchops](https://github.com/BishtNikhil/switchops)
+
+{% youtube AKnywbFaUkQ %}
+
+---
+
+![SwitchOps War Room Showcase](https://raw.githubusercontent.com/BishtNikhil/switchops/main/switchops_showcase.jpg)
 *Figure 1: SwitchOps multi-agent incident war room combining human SREs with Claude Code, Antigravity, and Codex.*
 
 ---
@@ -77,7 +86,7 @@ Traditional chatbots operate as point-to-point private message responders. Switc
 
 ---
 
-![Live Dashboard Overview](./blog_images/01_switchops_dashboard_overview.png)
+![Live Dashboard Overview](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/01_switchops_dashboard_overview.png)
 *Figure 2: The SwitchOps interactive room interface featuring bright pastels, high-contrast typography, and live bridge selectors.*
 
 ---
@@ -155,7 +164,7 @@ rules:
     description: "Zero production deployment or rollback without explicit human sign-off."
 ```
 
-![Switch Console Template Modal](./blog_images/02_switch_template_yaml.png)
+![Switch Console Template Modal](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/02_switch_template_yaml.png)
 *Figure 3: Inspecting the Switch Console template directly within the SwitchOps War Room.*
 
 ---
@@ -164,7 +173,7 @@ rules:
 
 Switch's collaboration bridges mean your agents aren't locked to one proprietary chat ecosystem. With one click, SwitchOps synchronizes across **Slack**, **Discord**, and **Microsoft Teams**:
 
-![Discord Bridge Active](./blog_images/03_multi_bridge_discord_sync.png)
+![Discord Bridge Active](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/03_multi_bridge_discord_sync.png)
 *Figure 4: Instant cross-platform bridge sync between Slack and Discord.*
 
 ---
@@ -180,10 +189,10 @@ For the **Code with Wispr ($500 Track)**, we integrated **Wispr Flow Pro** direc
 2. **Speed & Precision:** Wispr transcribes at **4.2x the speed of typing** with 99.4% technical speech accuracy.
 3. **Cryptographic Decision Log:** The voice command is intercepted, verified, and permanently recorded in the room's **Decisions Log** with a SHA hash (`0x7f4e91b8a3c20d`).
 
-![Wispr Voice Dictation Active](./blog_images/05_wispr_voice_dictation.png)
+![Wispr Voice Dictation Active](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/05_wispr_voice_dictation.png)
 *Figure 5: Wispr Flow active voice dictation with audio wave visualizer.*
 
-![Wispr Usage Scorecard](./blog_images/07_wispr_flow_usage_scorecard.png)
+![Wispr Usage Scorecard](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/07_wispr_flow_usage_scorecard.png)
 *Figure 6: Verified Wispr Flow Usage Scorecard showing 1,842 words dictated across the build and incident rehearsals.*
 
 ---
@@ -198,10 +207,10 @@ Within seconds:
 - HTTP 500 error rate drops to **0.00%**.
 - All 5 shared tasks are marked complete, and a blameless post-mortem is synthesized.
 
-![Immutable Decisions Audit Log](./blog_images/06_immutable_decisions_audit_log.png)
+![Immutable Decisions Audit Log](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/06_immutable_decisions_audit_log.png)
 *Figure 7: Cryptographically verified Decision Audit Log guaranteeing non-repudiation.*
 
-![Room Tasks Board](./blog_images/08_switch_room_tasks_board.png)
+![Room Tasks Board](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/08_switch_room_tasks_board.png)
 *Figure 8: Shared Room Tasks board showing real-time coordination between humans and AI agents.*
 
 ---
@@ -222,7 +231,7 @@ event: decision
 data: {"id":"DEC-2026-01","approver":"Priya Sharma","method":"Wispr Flow Voice","status":"APPROVED_AND_EXECUTED","hash":"0x7f4e91b8a3c20d"}
 ```
 
-![Switch Agent Protocol SSE Inspector](./blog_images/09_switch_agent_protocol_sse_inspector.png)
+![Switch Agent Protocol SSE Inspector](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/09_switch_agent_protocol_sse_inspector.png)
 *Figure 9: Live Server-Sent Events (SSE) inspector streaming protocol packets in real time.*
 
 ---
@@ -238,8 +247,10 @@ data: {"id":"DEC-2026-01","approver":"Priya Sharma","method":"Wispr Flow Voice",
 ## Quickstart & Open Source Repo
 
 SwitchOps is 100% open-source under the MIT license:
-- **GitHub Repository:** [https://github.com/your-username/switchops](https://github.com/your-username/switchops)
-- **Switch Docs:** [https://docs.switchagents.ai/](https://docs.switchagents.ai/)
-- **WeMakeDevs Discord:** [https://discord.gg/E2rWw2Yhsm](https://discord.gg/E2rWw2Yhsm)
+- 🚀 **Live Interactive App:** [https://switchops-mocha.vercel.app](https://switchops-mocha.vercel.app)
+- 🎥 **Demo Video:** [https://youtu.be/AKnywbFaUkQ](https://youtu.be/AKnywbFaUkQ)
+- 💻 **GitHub Repository:** [https://github.com/BishtNikhil/switchops](https://github.com/BishtNikhil/switchops)
+- 📖 **Switch Docs:** [https://docs.switchagents.ai/](https://docs.switchagents.ai/)
+- 👥 **WeMakeDevs Discord:** [https://discord.gg/E2rWw2Yhsm](https://discord.gg/E2rWw2Yhsm)
 
 *Let's Flip the Switch.* ⚡

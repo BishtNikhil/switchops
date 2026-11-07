@@ -241,7 +241,7 @@ Switch represents a pivotal shift in how we work with artificial intelligence: m
 With SwitchOps, we proved that combining Switch's Room Protocol with specialized agents and voice commanding can reduce incident triage time from 45 minutes of frantic scrambling down to under 90 seconds of clear, verified teamwork.
 
 Try SwitchOps today:
-- **GitHub Repository:** [https://github.com/your-username/switchops](https://github.com/your-username/switchops)
+- **GitHub Repository:** [https://github.com/BishtNikhil/switchops](https://github.com/BishtNikhil/switchops)
 - **Switch Documentation:** [https://docs.switchagents.ai/](https://docs.switchagents.ai/)
 - **WeMakeDevs Community:** [https://discord.gg/E2rWw2Yhsm](https://discord.gg/E2rWw2Yhsm)
 

@@ -30,12 +30,19 @@ Wispr transcribes at **4.2x the speed of typing** with 99.4% accuracy, and Switc
 • Clean, high-contrast bright pastel UI with an interactive incident lifecycle simulator
 • Complete `switchops-warroom.template.yaml` ready for **Switch Console**
 
-Huge thanks to Kunal Kushwaha, the entire WeMakeDevs community, and the Switch / SandboxAQ team for hosting such an inspiring hackathon! 
+Huge thanks to Kunal Kushwaha, the entire WeMakeDevs community, DevTools Academy, and the Switch / SandboxAQ team for hosting such an inspiring hackathon! 
 
-📖 Read the in-depth architecture blog on Dev.to:
+🎥 2-Minute Demo Video:
+https://youtu.be/AKnywbFaUkQ
+
+🚀 Live Interactive Deployment:
+https://switchops-mocha.vercel.app
+
+📖 In-Depth Architecture Blog on Dev.to:
 https://dev.to/nikhil_bisht_a8b58d0cb04a/turning-solo-ai-coding-agents-into-247-incident-teammates-building-switchops-with-switch-55bl
 
-💻 Open-source GitHub repository:
+💻 Open-Source GitHub Repository:
 https://github.com/BishtNikhil/switchops
 
-#HowISwitch #WeMakeDevs #DevOps #ArtificialIntelligence #SoftwareEngineering #OpenSource #WisprFlow #CloudComputing #SRE
+#HowISwitch #WeMakeDevs #DevToolsAcademy #DevOps #ArtificialIntelligence #SoftwareEngineering #OpenSource #WisprFlow #CloudComputing #SRE
+
