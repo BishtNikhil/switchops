@@ -38,8 +38,9 @@ https://youtu.be/AKnywbFaUkQ
 🚀 Live Interactive Deployment:
 https://switchops-mocha.vercel.app
 
-📖 In-Depth Architecture Blog on Dev.to:
-https://dev.to/nikhil_bisht_a8b58d0cb04a/turning-solo-ai-coding-agents-into-247-incident-teammates-building-switchops-with-switch-55bl
+📖 Read the In-Depth Architecture Blog:
+• Dev.to: https://dev.to/nikhil_bisht_a8b58d0cb04a/turning-solo-ai-coding-agents-into-247-incident-teammates-building-switchops-with-switch-55bl
+• Medium: https://medium.com/@nikhilbisht.301/discord-bridge-active-turning-solo-ai-coding-agents-into-24-7-incident-teammates-building-78e54c0bc5d5
 
 💻 Open-Source GitHub Repository:
 https://github.com/BishtNikhil/switchops
