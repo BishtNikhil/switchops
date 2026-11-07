@@ -108,3 +108,8 @@ desktop.ini
 logs/
 
 .vercel
+
+# --- Local Preview & Temporary Scratch Files ---
+medium_formatted.html
+medium_fetched.html
+scan_security.py
