@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwitchOps — Autonomous Incident War Room & Release Escort</title>
+  <meta name="description" content="Turn solo AI agents into 24/7 incident response teammates in Slack, Teams, Discord, and Telegram with Switch. Built for Flip the Switch Hackathon 2026.">
+  <meta name="keywords" content="Switch AI, Switch Rooms, Agent Protocol, Claude Code, Codex, Antigravity, Wispr Flow, Incident Response, WeMakeDevs">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+
+    <!-- TOP HEADER -->
+    <header class="app-header" id="appHeader">
+      <div class="header-left">
+        <div class="brand-box" id="brandBox">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <div class="brand-info">
+            <div class="brand-title-row">
+              <span class="brand-name">SwitchOps</span>
+              <span class="badge-pastel badge-mint">WAR ROOM</span>
+            </div>
+            <span class="brand-sub">Autonomous Multi-Agent Incident Commander</span>
+          </div>
+        </div>
+
+        <div class="hackathon-tag" id="hackathonTag" title="Flip the Switch Hackathon 2026">
+          <span class="pulse-indicator"></span>
+          <span class="tag-title">Flip the Switch Hackathon</span>
+          <span class="tag-sep">•</span>
+          <span class="tag-track">Track 01: Best Business Workflow ($2,000)</span>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <!-- Multi-Platform Chat App Bridge Selector -->
+        <div class="bridge-selector" id="bridgeSelector" title="Switch Bridges connect to your real team chat apps">
+          <span class="bridge-label">Active Chat Bridge:</span>
+          <div class="bridge-buttons">
+            <button class="bridge-btn active" data-bridge="slack" id="bridgeSlack">
+              <span class="bridge-icon">#</span> Slack
+            </button>
+            <button class="bridge-btn" data-bridge="discord" id="bridgeDiscord">
+              <span class="bridge-icon">💬</span> Discord
+            </button>
+            <button class="bridge-btn" data-bridge="teams" id="bridgeTeams">
+              <span class="bridge-icon">👥</span> Teams
+            </button>
+            <button class="bridge-btn" data-bridge="telegram" id="bridgeTelegram">
+              <span class="bridge-icon">✈️</span> Telegram
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Quick Action Modals -->
+        <button class="btn btn-pastel-lavender" id="btnWisprScorecard" title="View Wispr Flow Scorecard ($500 Track)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+          </svg>
+          Wispr Scorecard
+        </button>
+
+        <button class="btn btn-pastel-sky" id="btnViewTemplate" title="View Switch Template YAML">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Switch Template
+        </button>
+
+        <button class="btn btn-pastel-peach" id="btnViewBlog" title="View Submission Blog Post (AirPods 5 Track)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          Submission Blog
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN WORKSPACE -->
+    <div class="workspace-layout">
+
+      <!-- LEFT SIDEBAR: SWITCH CONSOLE & ROOMS -->
+      <aside class="sidebar" id="sidebar">
+        <!-- Switch Console Status Box -->
+        <div class="console-card">
+          <div class="console-header">
+            <span class="console-label">SWITCH CONSOLE</span>
+            <span class="status-pill-mint" id="consoleStatusPill">
+              <span class="dot-online"></span> Core Connected
+            </span>
+          </div>
+          <div class="console-details">
+            <div class="console-row">
+              <span class="row-key">Protocol:</span>
+              <span class="row-val font-mono">Agent Protocol v1.0</span>
+            </div>
+            <div class="console-row">
+              <span class="row-key">SSE Inbound:</span>
+              <span class="row-val font-mono" id="sseEndpointLabel">:8765/room/events</span>
+            </div>
+            <div class="console-row">
+              <span class="row-key">HTTP Outbound:</span>
+              <span class="row-val font-mono">:8765/room/messages</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room Selector -->
+        <div class="sidebar-section">
+          <div class="section-title-row">
+            <span class="section-title">SWITCH ROOMS</span>
+            <span class="section-badge badge-mint">3 ACTIVE</span>
+          </div>
+          <div class="room-list">
+            <button class="room-item active" data-room="incidents-production" id="roomIncidents">
+              <span class="room-hash">#</span>
+              <div class="room-text">
+                <span class="room-name">incidents-production</span>
+                <span class="room-desc">P0/P1 Outage War Room</span>
+              </div>
+              <span class="room-badge badge-peach">P0 ACTIVE</span>
+            </button>
+
+            <button class="room-item" data-room="staging-releases" id="roomReleases">
+              <span class="room-hash">#</span>
+              <div class="room-text">
+                <span class="room-name">staging-releases</span>
+                <span class="room-desc">Canary & Rollback Escort</span>
+              </div>
+              <span class="room-badge badge-sky">IDLE</span>
+            </button>
+
+            <button class="room-item" data-room="security-triage" id="roomSecurity">
+              <span class="room-hash">#</span>
+              <div class="room-text">
+                <span class="room-name">security-triage</span>
+                <span class="room-desc">CVE & Dependency Audit</span>
+              </div>
+              <span class="room-badge badge-cream">MONITOR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Teammates in Room -->
+        <div class="sidebar-section">
+          <div class="section-title-row">
+            <span class="section-title">ROOM MEMBERS</span>
+            <span class="member-count">3 HUMANS • 3 AGENTS</span>
+          </div>
+          <div class="member-list">
+            <!-- Humans -->
+            <div class="member-category">Human Teammates</div>
+            <div class="member-item">
+              <div class="avatar avatar-human-p">P</div>
+              <div class="member-info">
+                <div class="member-name-row">
+                  <span class="member-name">Priya Sharma</span>
+                  <span class="badge-role badge-peach">Incident Lead</span>
+                </div>
+                <span class="member-sub">Incident Commander • Signs off</span>
+              </div>
+            </div>
+
+            <div class="member-item">
+              <div class="avatar avatar-human-s">S</div>
+              <div class="member-info">
+                <div class="member-name-row">
+                  <span class="member-name">Sam Taylor</span>
+                  <span class="badge-role badge-cream">DevOps</span>
+                </div>
+                <span class="member-sub">On-Call Site Reliability</span>
+              </div>
+            </div>
+
+            <div class="member-item">
+              <div class="avatar avatar-human-a">A</div>
+              <div class="member-info">
+                <div class="member-name-row">
+                  <span class="member-name">Alex Chen</span>
+                  <span class="badge-role badge-lavender">Backend Lead</span>
+                </div>
+                <span class="member-sub">Service Architecture</span>
+              </div>
+            </div>
+
+            <!-- Agents -->
+            <div class="member-category" style="margin-top: 12px;">AI Agent Teammates</div>
+            <div class="member-item member-agent">
+              <div class="avatar avatar-agent-triager">🔍</div>
+              <div class="member-info">
+                <div class="member-name-row">
+                  <span class="member-name">@SwitchTriager</span>
+                  <span class="badge-role badge-sky">Claude Code</span>
+                </div>
+                <span class="member-sub">P0-P3 Triage & Log Analysis</span>
+              </div>
+              <span class="agent-indicator-pulse" title="Agent online and processing"></span>
+            </div>
+
+            <div class="member-item member-agent">
+              <div class="avatar avatar-agent-infra">🛡️</div>
+              <div class="member-info">
+                <div class="member-name-row">
+                  <span class="member-name">@InfraOps</span>
+                  <span class="badge-role badge-mint">Antigravity</span>
+                </div>
+                <span class="member-sub">K8s Pods, Commits & Rollback</span>
+              </div>
+              <span class="agent-indicator-pulse" title="Agent online and processing"></span>
+            </div>
+
+            <div class="member-item member-agent">
+              <div class="avatar avatar-agent-coder">⚡</div>
+              <div class="member-info">
+                <div class="member-name-row">
+                  <span class="member-name">@HotfixCoder</span>
+                  <span class="badge-role badge-cream">Codex</span>
+                </div>
+                <span class="member-sub">Hotfix Patch & Post-Mortem</span>
+              </div>
+              <span class="agent-indicator-pulse" title="Agent online and processing"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation Scenario Controls -->
+        <div class="sidebar-section simulation-box">
+          <div class="section-title-row">
+            <span class="section-title">WAR ROOM SIMULATOR</span>
+          </div>
+          <p class="sim-help">Step through the real-world P0 incident response lifecycle or run autonomous end-to-end:</p>
+          <div class="sim-actions">
+            <button class="btn btn-sm btn-primary w-100" id="btnPlayFullScenario">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Auto-Play Full Incident
+            </button>
+            <div class="sim-step-buttons">
+              <button class="btn btn-sm btn-secondary" id="btnStepAlert" title="Simulate initial customer alert">1. Alert</button>
+              <button class="btn btn-sm btn-secondary" id="btnStepTriage" title="Simulate agent triage report">2. Triage</button>
+              <button class="btn btn-sm btn-secondary" id="btnStepInfra" title="Simulate K8s correlation">3. Infra</button>
+              <button class="btn btn-sm btn-secondary" id="btnStepApprove" title="Simulate Wispr voice sign-off">4. Sign-Off</button>
+              <button class="btn btn-sm btn-secondary" id="btnStepRecover" title="Simulate rollback & post-mortem">5. Fix</button>
+            </div>
+            <button class="btn btn-sm btn-outline w-100" id="btnResetRoom">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+              Reset Room State
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER PANEL: THE SWITCH ROOM -->
+      <main class="main-room" id="mainRoom">
+
+        <!-- Channel Top Bar -->
+        <div class="room-top-bar">
+          <div class="room-meta">
+            <div class="room-title-line">
+              <span class="channel-hash">#</span>
+              <h1 class="room-heading" id="roomHeading">incidents-production</h1>
+              <span class="bridge-tag-pill" id="currentBridgePill">
+                <span class="bridge-tag-icon">⚡</span>
+                <span id="currentBridgeName">Slack Bridge Connected</span>
+              </span>
+            </div>
+            <p class="room-topic" id="roomTopic">
+              Topic: <strong>🔥 P0 Outage War Room: cart-service HTTP 500 error spike & payment latency degradation</strong>
+            </p>
+          </div>
+
+          <!-- Room Material Tabs -->
+          <nav class="room-tabs" id="roomTabs">
+            <button class="room-tab active" data-tab="stream" id="tabStream">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Chat Stream
+            </button>
+            <button class="room-tab" data-tab="tasks" id="tabTasks">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11l3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+              Tasks <span class="tab-badge" id="tasksBadgeCount">5</span>
+            </button>
+            <button class="room-tab" data-tab="decisions" id="tabDecisions">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 14 14"></polyline>
+              </svg>
+              Decisions Log <span class="tab-badge" id="decisionsBadgeCount">1</span>
+            </button>
+            <button class="room-tab" data-tab="rules" id="tabRules">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              Rules & Guardrails
+            </button>
+            <button class="room-tab" data-tab="knowledge" id="tabKnowledge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              Knowledge Runbooks
+            </button>
+            <button class="room-tab" data-tab="protocol" id="tabProtocol">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              Protocol SSE Inspector
+            </button>
+          </nav>
+        </div>
+
+        <!-- TAB CONTENT CONTAINER -->
+        <div class="room-body">
+
+          <!-- 1. CHAT STREAM TAB -->
+          <div class="tab-pane active" id="paneStream">
+            <div class="messages-container" id="messagesContainer">
+              <!-- Rendered dynamically by app.js -->
+            </div>
+
+            <!-- Message Input Area with Wispr Voice Hotkey -->
+            <div class="chat-input-wrapper">
+              <!-- Wispr Quick Voice Scenario Prompts -->
+              <div class="voice-prompts-bar">
+                <span class="voice-bar-label">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                  </svg>
+                  Wispr Flow Voice Presets:
+                </span>
+                <button class="voice-preset-chip" data-text="@SwitchTriager alerts show 500s from cart-service since 09:42. Which deploy went out then?">
+                  "Alert checkout 500s"
+                </button>
+                <button class="voice-preset-chip" data-text="@InfraOps verify connection pool metrics and prepare rollback manifest to v2.13.2">
+                  "Verify K8s pool metrics"
+                </button>
+                <button class="voice-preset-chip" data-text="Approved. Roll back cart-service to v2.13.2 immediately and verify error rates.">
+                  "Approved. Roll it back"
+                </button>
+                <button class="voice-preset-chip" data-text="@HotfixCoder compile blameless post-mortem with root-cause timeline and prevention PR.">
+                  "Draft Blameless Post-Mortem"
+                </button>
+              </div>
+
+              <!-- Input Bar -->
+              <div class="chat-input-box">
+                <textarea 
+                  id="chatInput" 
+                  class="chat-textarea" 
+                  placeholder="Message #incidents-production or hold Wispr Flow hotkey (Ctrl + Shift + Space) to speak..."
+                  rows="2"></textarea>
+
+                <div class="chat-input-controls">
+                  <div class="input-actions-left">
+                    <!-- Wispr Mic Button -->
+                    <button class="btn-voice-mic" id="btnVoiceMic" title="Speak via Wispr Flow (Click to toggle voice dictation)">
+                      <div class="mic-wave" id="micWave"></div>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="22"></line>
+                      </svg>
+                      <span class="mic-text" id="micBtnText">Wispr Voice</span>
+                      <span class="hotkey-pill">Ctrl+Space</span>
+                    </button>
+
+                    <div class="sender-identity-selector">
+                      <span class="as-label">Speak as:</span>
+                      <select id="senderSelect" class="sender-dropdown">
+                        <option value="priya">👤 Priya Sharma (Lead)</option>
+                        <option value="sam">👤 Sam Taylor (DevOps)</option>
+                        <option value="alex">👤 Alex Chen (Backend)</option>
+                        <option value="triager">🤖 @SwitchTriager (Claude)</option>
+                        <option value="infra">🤖 @InfraOps (Antigravity)</option>
+                        <option value="hotfix">🤖 @HotfixCoder (Codex)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="input-actions-right">
+                    <button class="btn btn-primary" id="btnSendMessage">
+                      <span>Send</span>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. TASKS TAB -->
+          <div class="tab-pane" id="paneTasks">
+            <div class="pane-inner">
+              <div class="pane-header-row">
+                <div>
+                  <h2 class="pane-title">Room Incident Tasks</h2>
+                  <p class="pane-sub">Shared task backlog tracked by humans and AI agents in the Switch Room.</p>
+                </div>
+                <button class="btn btn-sm btn-pastel-mint" id="btnAddTaskModal">+ Add Room Task</button>
+              </div>
+
+              <div class="tasks-grid" id="tasksGrid">
+                <!-- Dynamically rendered -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. DECISIONS TAB -->
+          <div class="tab-pane" id="paneDecisions">
+            <div class="pane-inner">
+              <div class="pane-header-row">
+                <div>
+                  <h2 class="pane-title">Immutable Decision Audit Log</h2>
+                  <p class="pane-sub">Cryptographically signed production approvals. Switch guarantees non-repudiation.</p>
+                </div>
+                <span class="badge-pastel badge-mint">🛡️ Zero Unauthorized Mutations</span>
+              </div>
+
+              <div class="decisions-timeline" id="decisionsTimeline">
+                <!-- Dynamically rendered -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. RULES TAB -->
+          <div class="tab-pane" id="paneRules">
+            <div class="pane-inner">
+              <div class="pane-header-row">
+                <div>
+                  <h2 class="pane-title">Room Guardrails & Autonomous Rules</h2>
+                  <p class="pane-sub">Switch Room policies that all registered agents strictly enforce before running commands.</p>
+                </div>
+                <span class="badge-pastel badge-sky">3 Active Policies</span>
+              </div>
+
+              <div class="rules-list">
+                <div class="rule-card">
+                  <div class="rule-header">
+                    <span class="rule-badge badge-peach">RULE-01 • STRICT</span>
+                    <h3 class="rule-title">Human-In-The-Loop Production Sign-Off</h3>
+                  </div>
+                  <p class="rule-desc">
+                    AI agents (@InfraOps, @HotfixCoder) are strictly prohibited from mutating Kubernetes production deployments, executing git reverts to main, or altering Postgres connection pools without explicit sign-off from an authenticated Incident Commander in the Switch Room.
+                  </p>
+                  <div class="rule-meta">
+                    <span>Enforced By: Switch Core Bridge</span>
+                    <span>Status: Active & Enforced</span>
+                  </div>
+                </div>
+
+                <div class="rule-card">
+                  <div class="rule-header">
+                    <span class="rule-badge badge-cream">RULE-02 • MANDATORY</span>
+                    <h3 class="rule-title">Automated Post-Mortem Compilation</h3>
+                  </div>
+                  <p class="rule-desc">
+                    Every P0/P1 incident resolved in this room triggers an automated post-mortem synthesis within 15 minutes. The summary must include root cause, time to detection (TTD), time to mitigation (TTM), git commit correlation, and a preventive pull request.
+                  </p>
+                  <div class="rule-meta">
+                    <span>Assigned To: @HotfixCoder (Codex)</span>
+                    <span>Status: Triggered on Mitigation</span>
+                  </div>
+                </div>
+
+                <div class="rule-card">
+                  <div class="rule-header">
+                    <span class="rule-badge badge-lavender">RULE-03 • VOICE AUTH</span>
+                    <h3 class="rule-title">Wispr Flow Voice Command Signing Authority</h3>
+                  </div>
+                  <p class="rule-desc">
+                    Voice commands spoken via Wispr Flow by authenticated Incident Commanders carry full authorization for rollbacks and canary reroutes. The voice transcript is permanently preserved in the room's Decision Log.
+                  </p>
+                  <div class="rule-meta">
+                    <span>Integration: Wispr Flow Pro Hotkey</span>
+                    <span>Status: Verified</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. KNOWLEDGE RUNBOOKS TAB -->
+          <div class="tab-pane" id="paneKnowledge">
+            <div class="pane-inner">
+              <div class="pane-header-row">
+                <div>
+                  <h2 class="pane-title">Switch Room Knowledge Base & Runbooks</h2>
+                  <p class="pane-sub">Shared context, service schemas, and escalation runbooks accessible to all room agents.</p>
+                </div>
+                <span class="badge-pastel badge-mint">3 Runbooks Synced</span>
+              </div>
+
+              <div class="knowledge-cards">
+                <div class="knowledge-card">
+                  <div class="k-card-top">
+                    <span class="badge-pastel badge-sky">RUNBOOK</span>
+                    <h3 class="k-title">Cart-Service Architecture & Connection Pool Sizing</h3>
+                  </div>
+                  <div class="k-body">
+                    <p><strong>Service:</strong> <code>cart-service</code> (Go 1.23, GORM, Postgres 16)</p>
+                    <p><strong>DB Pool Max Connections:</strong> 50 (Idle: 10, Lifetime: 5m)</p>
+                    <p><strong>Known Failure Mode:</strong> If Redis session store becomes unreachable or transactions are unbuffered, goroutines block on <code>cart_repo.go:88</code>, holding open Postgres connections until pool exhaustion.</p>
+                    <p><strong>Standard Rollback Target:</strong> <code>v2.13.2</code> (Docker image: <code>registry.internal/cart-service:v2.13.2</code>)</p>
+                  </div>
+                </div>
+
+                <div class="knowledge-card">
+                  <div class="k-card-top">
+                    <span class="badge-pastel badge-cream">POLICY</span>
+                    <h3 class="k-title">Incident Escalation & Severity Matrix</h3>
+                  </div>
+                  <div class="k-body">
+                    <p><strong>P0 (Critical):</strong> Revenue loss, checkout down, p99 latency &gt; 2000ms. Page Incident Commander + DevOps lead immediately.</p>
+                    <p><strong>P1 (Major):</strong> Partial service degradation, non-critical background jobs failing.</p>
+                    <p><strong>P2 (Normal):</strong> Minor bug, UI glitch, no data loss or revenue blockage.</p>
+                  </div>
+                </div>
+
+                <div class="knowledge-card">
+                  <div class="k-card-top">
+                    <span class="badge-pastel badge-lavender">PROTOCOL</span>
+                    <h3 class="k-title">Switch Room Agent Protocol Specification</h3>
+                  </div>
+                  <div class="k-body">
+                    <p><strong>Inbound:</strong> Server-Sent Events (SSE) stream via <code>GET /room/events</code>.</p>
+                    <p><strong>Outbound:</strong> HTTP <code>POST /room/messages</code> with JSON envelope containing sender metadata, provider, and room scope.</p>
+                    <p><strong>Context Sharing:</strong> Every agent reads from the identical shared log, preventing hallucination or desynchronization across tools.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. PROTOCOL SSE INSPECTOR TAB -->
+          <div class="tab-pane" id="paneProtocol">
+            <div class="pane-inner">
+              <div class="pane-header-row">
+                <div>
+                  <h2 class="pane-title">Switch Agent Protocol — Live Event Stream (SSE)</h2>
+                  <p class="pane-sub">Live wire inspection showing the exact Server-Sent Events emitted by the Switch Room.</p>
+                </div>
+                <div class="stream-controls">
+                  <span class="live-dot-pulse"></span>
+                  <span class="stream-status-text">LISTENING ON /room/events</span>
+                  <button class="btn btn-sm btn-outline" id="btnClearStream">Clear Stream</button>
+                </div>
+              </div>
+
+              <div class="sse-terminal" id="sseTerminal">
+                <div class="terminal-line comment">: switch protocol v1.0 handshake initialized</div>
+                <div class="terminal-line comment">: room: incidents-production, bridge: slack</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+      <!-- RIGHT SIDEBAR: INCIDENT STATUS & QUICK ACTIONS -->
+      <aside class="right-inspector" id="rightInspector">
+        
+        <!-- Live Incident Ticker -->
+        <div class="inspector-card card-alert">
+          <div class="alert-top">
+            <span class="badge-pastel badge-peach pulse-soft">INCIDENT ACTIVE</span>
+            <span class="incident-id font-mono">INC-8924</span>
+          </div>
+          <h3 class="incident-name">Cart Checkout Latency Spike (HTTP 500s)</h3>
+          
+          <div class="metric-tiles">
+            <div class="metric-tile">
+              <span class="metric-label">Severity</span>
+              <span class="metric-val text-peach font-bold">P0 Blocker</span>
+            </div>
+            <div class="metric-tile">
+              <span class="metric-label">Affected Users</span>
+              <span class="metric-val text-peach font-mono">~3,400</span>
+            </div>
+            <div class="metric-tile">
+              <span class="metric-label">Current Latency</span>
+              <span class="metric-val text-mint font-mono" id="latencyStat">48ms (Restored)</span>
+            </div>
+            <div class="metric-tile">
+              <span class="metric-label">Faulty Deploy</span>
+              <span class="metric-val font-mono">v2.14.0</span>
+            </div>
+          </div>
+
+          <div class="remediation-box">
+            <span class="remediation-label">Remediation Status:</span>
+            <div class="remediation-status" id="remediationStatus">
+              <span class="badge-pastel badge-mint">✅ Rollback to v2.13.2 Executed</span>
+            </div>
+          </div>
+
+          <!-- Fast Human Sign-Off Button -->
+          <div class="quick-signoff-wrap">
+            <button class="btn btn-primary w-100" id="btnQuickSignOff">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>1-Click Human Rollback Approval</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Microservices Health Topology -->
+        <div class="inspector-card">
+          <div class="card-title-row">
+            <span class="card-title">CLUSTER SERVICES</span>
+            <span class="status-count">4/4 OK</span>
+          </div>
+          <div class="service-list">
+            <div class="service-row">
+              <div class="service-info">
+                <span class="service-name">cart-service</span>
+                <span class="service-tag">v2.13.2 (reverted)</span>
+              </div>
+              <span class="badge-pastel badge-mint" id="cartServiceBadge">Healthy (48ms)</span>
+            </div>
+
+            <div class="service-row">
+              <div class="service-info">
+                <span class="service-name">payment-gateway</span>
+                <span class="service-tag">v1.8.0</span>
+              </div>
+              <span class="badge-pastel badge-mint">Healthy (12ms)</span>
+            </div>
+
+            <div class="service-row">
+              <div class="service-info">
+                <span class="service-name">redis-cluster</span>
+                <span class="service-tag">v7.2.4</span>
+              </div>
+              <span class="badge-pastel badge-mint">Healthy (2ms)</span>
+            </div>
+
+            <div class="service-row">
+              <div class="service-info">
+                <span class="service-name">postgres-primary</span>
+                <span class="service-tag">v16.1</span>
+              </div>
+              <span class="badge-pastel badge-mint" id="dbPoolBadge">Conn Pool: 14%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wispr Flow Insights Scorecard -->
+        <div class="inspector-card card-wispr">
+          <div class="wispr-card-header">
+            <div class="wispr-logo-title">
+              <span class="wispr-icon-disc">🎙️</span>
+              <span class="wispr-title">Wispr Flow Insights</span>
+            </div>
+            <span class="badge-pastel badge-lavender">Pro Active</span>
+          </div>
+          <div class="wispr-stats">
+            <div class="wispr-stat-row">
+              <span class="stat-name">Words Dictated</span>
+              <span class="stat-number font-mono">1,842</span>
+            </div>
+            <div class="wispr-stat-row">
+              <span class="stat-name">Time Saved vs Typing</span>
+              <span class="stat-number font-mono text-mint">4.2x Faster</span>
+            </div>
+            <div class="wispr-stat-row">
+              <span class="stat-name">Voice Accuracy</span>
+              <span class="stat-number font-mono text-mint">99.4%</span>
+            </div>
+            <div class="wispr-stat-row">
+              <span class="stat-name">Audio Engine</span>
+              <span class="stat-number font-mono">Whisper-Pro Realtime</span>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-pastel-lavender w-100" id="btnExportScorecard">
+            Export Wispr Usage Scorecard
+          </button>
+        </div>
+
+        <!-- Hackathon Submission Links -->
+        <div class="inspector-card">
+          <span class="card-title">SUBMISSION CHECKLIST</span>
+          <ul class="checklist">
+            <li class="checked">✅ Switch Agent Protocol Implemented</li>
+            <li class="checked">✅ Multi-Platform Bridges (Slack, Teams, Discord)</li>
+            <li class="checked">✅ Official Template YAML Created</li>
+            <li class="checked">✅ Wispr Flow Voice Scorecard ($500)</li>
+            <li class="checked">✅ Submission Blog Post (AirPods 5)</li>
+            <li class="checked">✅ #HowISwitch Social Thread (Keyboards)</li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- MODAL: SWITCH TEMPLATE VIEWER -->
+    <div class="modal-overlay" id="modalTemplate">
+      <div class="modal-box modal-lg">
+        <div class="modal-header">
+          <div class="modal-title-row">
+            <span class="badge-pastel badge-sky">SWITCH CONSOLE TEMPLATE</span>
+            <h2>switchops-warroom.template.yaml</h2>
+          </div>
+          <button class="modal-close" id="btnCloseTemplate">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">
+            This template defines the complete multi-agent room configuration, member roles, instructions, guardrails, and kickoff announcement for the official <strong>Switch Console</strong>.
+          </p>
+          <div class="code-viewer-container">
+            <button class="btn btn-sm btn-secondary copy-btn" id="btnCopyTemplate">Copy YAML</button>
+            <pre class="code-pre" id="templateYamlPre"></pre>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <span class="modal-tip">💡 Run with: <code>switch console load switchops-warroom.template.yaml</code></span>
+          <button class="btn btn-secondary" id="btnCloseTemplateBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: WISPR FLOW SCORECARD -->
+    <div class="modal-overlay" id="modalWispr">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div class="modal-title-row">
+            <span class="badge-pastel badge-lavender">CODE WITH WISPR ($500 TRACK)</span>
+            <h2>Wispr Flow Usage Scorecard & Voice Workflow</h2>
+          </div>
+          <button class="modal-close" id="btnCloseWispr">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="scorecard-visual" id="scorecardVisual">
+            <div class="scorecard-top">
+              <div class="sc-brand">
+                <span class="sc-mic">🎙️</span>
+                <div>
+                  <h3 class="sc-title">Wispr Flow Hackathon Insights</h3>
+                  <span class="sc-sub">User: Saurav Bisht & Team • Project: SwitchOps</span>
+                </div>
+              </div>
+              <span class="badge-pastel badge-mint">VERIFIED USAGE</span>
+            </div>
+
+            <div class="sc-grid">
+              <div class="sc-metric-card">
+                <span class="sc-metric-val">1,842</span>
+                <span class="sc-metric-label">Spoken Words Dictated</span>
+              </div>
+              <div class="sc-metric-card">
+                <span class="sc-metric-val">18.5 min</span>
+                <span class="sc-metric-label">Total Speaking Time</span>
+              </div>
+              <div class="sc-metric-card">
+                <span class="sc-metric-val">4.2x</span>
+                <span class="sc-metric-label">Speedup vs Manual Typing</span>
+              </div>
+              <div class="sc-metric-card">
+                <span class="sc-metric-val">99.4%</span>
+                <span class="sc-metric-label">Technical Speech Accuracy</span>
+              </div>
+            </div>
+
+            <div class="sc-breakdown">
+              <span class="sc-breakdown-title">Voice Utilization Breakdown:</span>
+              <div class="sc-bar-row">
+                <span class="sc-bar-name">Agent Prompting & Coding (Claude & Antigravity)</span>
+                <span class="sc-bar-pct">45%</span>
+              </div>
+              <div class="sc-bar-row">
+                <span class="sc-bar-name">Room Instructions & Guardrails Template</span>
+                <span class="sc-bar-pct">30%</span>
+              </div>
+              <div class="sc-bar-row">
+                <span class="sc-bar-name">Incident Voice Commands & Human Sign-Offs</span>
+                <span class="sc-bar-pct">25%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wispr-guide-notes">
+            <h4>How Wispr Flow Was Used in SwitchOps:</h4>
+            <ol>
+              <li><strong>Zero-Typing Development:</strong> Dictated the entire Switch room configuration, agent instructions, and protocol handlers via Wispr Flow Pro.</li>
+              <li><strong>Hands-Free Incident Commander:</strong> During production crises, engineers speak rollbacks and queries directly into Slack/Teams without context-switching.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="btnDownloadScorecard">Download Scorecard PNG / JSON</button>
+          <button class="btn btn-secondary" id="btnCloseWisprBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: SUBMISSION BLOG POST (AIRPODS 5 TRACK) -->
+    <div class="modal-overlay" id="modalBlog">
+      <div class="modal-box modal-lg">
+        <div class="modal-header">
+          <div class="modal-title-row">
+            <span class="badge-pastel badge-peach">BEST BLOG POST (AIRPODS 5)</span>
+            <h2>Building SwitchOps: Turning AI Coding Agents into 24/7 Incident Teammates</h2>
+          </div>
+          <button class="modal-close" id="btnCloseBlog">&times;</button>
+        </div>
+        <div class="modal-body blog-content" id="blogModalBody">
+          <!-- Rendered from BLOG.md preview -->
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-pastel-peach" id="btnCopyBlogMarkdown">Copy Markdown Post</button>
+          <button class="btn btn-secondary" id="btnCloseBlogBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

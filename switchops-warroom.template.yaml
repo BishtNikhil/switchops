@@ -1,0 +1,133 @@
+# ==============================================================================
+# SwitchOps — Autonomous Incident War Room & Release Escort
+# Template for Switch Console (sandbox-quantum/switch)
+# Flip the Switch Hackathon 2026 — Track 01: Best Business Workflow
+# ==============================================================================
+
+version: "1.0"
+metadata:
+  name: "switchops-warroom"
+  title: "SwitchOps: Multi-Agent Production Incident Commander & Release Escort"
+  description: "Connects Claude Code, Codex, and Antigravity agents into a shared incident response room across Slack, Teams, Discord, and Telegram."
+  author: "Nikhil Bisht & Team"
+  category: "DevOps & Production Reliability"
+  tags:
+    - "switch-rooms"
+    - "incident-response"
+    - "claude-code"
+    - "codex"
+    - "antigravity"
+    - "wispr-flow"
+
+# ------------------------------------------------------------------------------
+# 1. AI Agents Registration
+# ------------------------------------------------------------------------------
+agents:
+  # Agent 1: Incident Triager
+  - name: "{team}-triager"
+    display_name: "Incident Triager AI"
+    avatar: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=128&auto=format&fit=crop&q=80"
+    description: "Ingests alerts, telemetry, customer reports, classifies P0-P3 severity, and routes root causes."
+    addressing: anyone
+    provider: "{provider}" # e.g. claude-code, antigravity, anthropic, openai
+    instructions: |
+      You are the Lead Incident Triager for the engineering on-call room.
+      When an incident alert, bug report, or telemetry anomaly is posted:
+      1. Restate the core incident in 1 line: [Severity: P0/P1/P2/P3] [Service] Brief summary.
+      2. Extract impacted endpoints, error codes (e.g. 500, 504), and blast radius (affected users, throughput drop).
+      3. Assign diagnostic tasks to @{team}-infraops and code tasks to @{team}-hotfixer.
+      4. Never recommend risky production actions without human sign-off.
+    tools:
+      - datadog_query_logs
+      - sentry_fetch_issue
+      - cloudwatch_p99_metrics
+
+  # Agent 2: Infrastructure & Telemetry Sentry
+  - name: "{team}-infraops"
+    display_name: "InfraOps Sentry"
+    avatar: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=128&auto=format&fit=crop&q=80"
+    description: "Inspects Kubernetes pods, recent GitHub deployments, database connection pools, and canary health."
+    addressing: owner-agents
+    provider: "{provider}"
+    instructions: |
+      You are the Infrastructure & Deployment Sentry.
+      When routed an incident by the triager:
+      1. Inspect the last 3 deployments across staging and production.
+      2. Identify the exact commit SHA, author, and deploy timestamp that correlates with the incident start time.
+      3. Check database connection pool exhaustion, CPU/memory spikes, and deadlocks.
+      4. Prepare a concrete rollback target (e.g. rollback to v2.13.2) or canary drain plan.
+      5. Post findings back into the room and ask the Human Incident Commander for approval.
+    tools:
+      - k8s_pod_status
+      - github_compare_commits
+      - psql_active_locks
+      - argo_rollback_preview
+
+  # Agent 3: Hotfix & Rollback Engineer
+  - name: "{team}-hotfixer"
+    display_name: "Hotfix Code Assistant"
+    avatar: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=128&auto=format&fit=crop&q=80"
+    description: "Generates surgical hotfix patches, runs automated regression tests, drafts rollback PRs, and summarizes post-mortems."
+    addressing: owner-agents
+    provider: "{provider}"
+    instructions: |
+      You are the Hotfix Code Assistant.
+      When an incident requires code remediation or rollback execution:
+      1. Review the git diff between the faulty release and the stable rollback target.
+      2. Provide the exact rollback CLI command or git revert PR diff.
+      3. Run automated smoke tests in staging sandbox before touching production.
+      4. Once approved by human teammates, execute the release verification.
+      5. Draft the complete Markdown Post-Mortem summarizing root cause, resolution timeline, and preventive actions.
+    tools:
+      - git_revert_pr
+      - run_smoke_tests
+      - generate_postmortem_markdown
+
+# ------------------------------------------------------------------------------
+# 2. Switch Room Configuration
+# ------------------------------------------------------------------------------
+room:
+  name: "{team}-incidents"
+  topic: "🔥 Production War Room & Automated Incident Response"
+  bridge: "{bridge}" # e.g. slack, teams, discord, telegram, mattermost
+  agents:
+    - "{team}-triager"
+    - "{team}-infraops"
+    - "{team}-hotfixer"
+  users:
+    - "{$creator}"
+    - "priya.incident_lead"
+    - "sam.devops"
+    - "alex.backend"
+
+# ------------------------------------------------------------------------------
+# 3. Guardrails & Room Rules
+# ------------------------------------------------------------------------------
+rules:
+  - id: "RULE-01"
+    name: "Human-In-The-Loop Approval"
+    description: "No production deployment, rollback, or database schema migration may execute without explicit human sign-off in the room."
+    severity: "STRICT"
+  - id: "RULE-02"
+    name: "Blameless Post-Mortem"
+    description: "Every resolved P0/P1 incident must automatically compile an immutable post-mortem within 15 minutes of resolution."
+    severity: "MANDATORY"
+  - id: "RULE-03"
+    name: "Voice Command Authority"
+    description: "Wispr Flow voice commands from authenticated Incident Commanders carry full signing authority."
+    severity: "INFORMATIONAL"
+
+# ------------------------------------------------------------------------------
+# 4. Kickoff Announcement
+# ------------------------------------------------------------------------------
+kickoff: |
+  🚨 **SwitchOps War Room Activated**
+  Connected via Switch Bridge (`{bridge}`) to channel `#{team}-incidents`.
+  
+  **Teammates in Room:**
+  - 👤 Human Lead: {$creator}
+  - 🤖 @{team}-triager (Severity classification & error routing)
+  - 🤖 @{team}-infraops (K8s pods, telemetry & deployment rollback check)
+  - 🤖 @{team}-hotfixer (Hotfix patches, diff verification & post-mortems)
+  
+  Speak naturally via **Wispr Flow** or post in chat to triage issues in real time.
