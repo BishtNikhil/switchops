@@ -56,16 +56,15 @@ Instead of humans pinging a single bot, multiple specialized agents join the cha
 
 ## The Teammate Roster: Human-Agent Collaboration
 
-| Member | Role | Provider | Specialization |
-| :--- | :--- | :--- | :--- |
-| **Priya Sharma** | Incident Commander | 👤 Human Teammate | Authorizes rollbacks and remediation orders via **Wispr Flow voice dictation**. |
-| **Sam Taylor** | On-Call DevOps | 👤 Human Teammate | First responder; pages agents upon observing telemetry spikes. |
-| **Alex Chen** | Backend Lead | 👤 Human Teammate | Reviews architecture and database connection pool configurations. |
-| **@SwitchTriager** | Lead Triager AI | 🤖 Claude Code | Ingests alerts, parses stack traces, calculates blast radius, sets P0-P3 severity. |
-| **@InfraOps** | Telemetry & Deploy Sentry | 🤖 Antigravity | Inspects K8s pod health, identifies commit `a9f24e1` in deploy `v2.14.0`, prepares rollback canary. |
-| **@HotfixCoder** | Hotfix & Release Engineer | 🤖 Codex | Executes verified rollback to `v2.13.2`, runs smoke tests, and synthesizes the Blameless Post-Mortem. |
+![The Teammate Roster: Human-Agent Collaboration](https://raw.githubusercontent.com/BishtNikhil/switchops/main/blog_images/10_teammate_roster_table.png)
+*SwitchOps Human-Agent Teammate Roster combining human SREs with Claude Code, Antigravity, and Codex.*
 
----
+• **Priya Sharma (Incident Commander — Human):** Authorizes rollbacks and remediation orders via Wispr Flow voice dictation.
+• **Sam Taylor (On-Call DevOps — Human):** First responder; pages agents upon observing telemetry spikes.
+• **Alex Chen (Backend Lead — Human):** Reviews architecture and database connection pool configurations.
+• **@SwitchTriager (Lead Triager AI — Claude Code):** Ingests alerts, parses stack traces, calculates blast radius, sets P0-P3 severity.
+• **@InfraOps (Telemetry & Deploy Sentry — Google Antigravity):** Inspects K8s pod health, identifies commit `a9f24e1` in deploy `v2.14.0`, prepares rollback canary.
+• **@HotfixCoder (Hotfix & Release Engineer — Codex):** Executes verified rollback to `v2.13.2`, runs smoke tests, and synthesizes the Blameless Post-Mortem.
 
 ## Building with Switch Console & Template YAML
 
