@@ -4,6 +4,7 @@
 > **Target Track:** Track 01: Best Business Workflow ($2,000)  
 > **Side Tracks:** Code with Wispr ($500) • Best Blog (AirPods 5) • #HowISwitch (Logitech Mechanical Keyboards)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-switchops--mocha.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://switchops-mocha.vercel.app)
 [![Dev.to Article](https://img.shields.io/badge/Dev.to-Read%20the%20Blog%20Post-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white)](https://dev.to/nikhil_bisht_a8b58d0cb04a/turning-solo-ai-coding-agents-into-247-incident-teammates-building-switchops-with-switch-55bl)
 [![Switch Powered](https://img.shields.io/badge/Switch-Agent%20Protocol%20v1.0-059669?style=for-the-badge&logo=switch&logoColor=white)](https://docs.switchagents.ai/)
 [![Wispr Flow](https://img.shields.io/badge/Wispr%20Flow-Voice%20Command%20Verified-8B5CF6?style=for-the-badge&logo=soundcharts&logoColor=white)](https://www.wisprflow.ai/)

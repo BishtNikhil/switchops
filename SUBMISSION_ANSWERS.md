@@ -57,9 +57,8 @@ https://youtu.be/<YOUR_VIDEO_ID>
 *(Leave blank if your project doesn't have a live demo.)*
 
 ```text
-https://switchops.vercel.app
+https://switchops-mocha.vercel.app
 ```
-*(Or your Vercel deployment URL, or leave blank if submitting purely via the GitHub repository & video)*
 
 ---
 

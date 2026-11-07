@@ -1,0 +1,85 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:06.420
+Hey everyone! This is our submission for the Flip the Switch Hackathon in Track 1:
+
+2
+00:00:06.420 --> 00:00:08.140
+Best Business Workflow.
+
+3
+00:00:08.140 --> 00:00:13.100
+Solo AI coding agents in terminals are great, but when a critical P0 outage strikes at 3:00 AM...
+
+4
+00:00:13.100 --> 00:00:19.900
+...engineering is collaborative. Fragmented alerts across Datadog, GitHub, and Slack cause chaos.
+
+5
+00:00:19.900 --> 00:00:24.150
+We built SwitchOps to bring agents directly into team chat.
+
+6
+00:00:24.650 --> 00:00:32.550
+Using open-source Switch, we transformed Slack channel #incidents-production into a shared room.
+
+7
+00:00:32.550 --> 00:00:38.970
+Notice how human teammates Priya, Sam, and Alex share the room with three specialized agents:
+
+8
+00:00:38.970 --> 00:00:44.650
+@SwitchTriager, @InfraOps, and @HotfixCoder.
+
+9
+00:00:44.650 --> 00:00:51.000
+They all read from the exact same shared memory, tasks, and decision log.
+
+10
+00:00:51.500 --> 00:00:54.960
+Sam reports checkout API 500 errors.
+
+11
+00:00:54.960 --> 00:01:00.900
+Instantly, @SwitchTriager analyzes the logs and flags Postgres connection pool exhaustion.
+
+12
+00:01:00.900 --> 00:01:09.440
+Then @InfraOps inspects recent deployments, pinpoints the faulty commit in release v2.14.0...
+
+13
+00:01:09.440 --> 00:01:13.450
+...and prepares our rollback manifest to version v2.13.2.
+
+14
+00:01:13.950 --> 00:01:20.790
+Because Switch strictly enforces Rule-01, agents cannot touch production without human sign-off.
+
+15
+00:01:20.790 --> 00:01:27.970
+Priya taps her Wispr Flow key and dictates: 'Approved. Roll back cart-service to version v2.13.2.'
+
+16
+00:01:27.970 --> 00:01:33.950
+Wispr Flow transcribes it 4 times faster than typing, and Switch records the cryptographic...
+
+17
+00:01:33.950 --> 00:01:36.900
+...hash in the immutable Decisions Log.
+
+18
+00:01:37.400 --> 00:01:45.320
+@HotfixCoder executes the rollback, connection pool drops from 100% to 14%, latency...
+
+19
+00:01:45.320 --> 00:01:51.260
+...drops back to 48ms, and the blameless post-mortem is automatically synthesized.
+
+20
+00:01:51.260 --> 00:01:56.860
+SwitchOps turns solo agents into your team's most dependable production allies.
+
+21
+00:01:56.860 --> 00:01:59.850
+Thank you WeMakeDevs and Switch!

@@ -1,0 +1,10 @@
+*.mp4
+*.m4a
+*.wav
+Myvoiceover/
+processed_audio/
+processed_audio_*/
+.git/
+.env*
+__pycache__/
+*.py
