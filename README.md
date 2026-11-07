@@ -5,7 +5,9 @@
 > **Side Tracks:** Code with Wispr ($500) • Best Blog (AirPods 5) • #HowISwitch (Logitech Mechanical Keyboards)
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-switchops--mocha.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://switchops-mocha.vercel.app)
-[![Dev.to Article](https://img.shields.io/badge/Dev.to-Read%20the%20Blog%20Post-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white)](https://dev.to/nikhil_bisht_a8b58d0cb04a/turning-solo-ai-coding-agents-into-247-incident-teammates-building-switchops-with-switch-55bl)
+[![Demo Video](https://img.shields.io/badge/YouTube-2--Min%20Demo%20Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/AKnywbFaUkQ)
+[![Dev.to Article](https://img.shields.io/badge/Dev.to-Architecture%20Blog-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white)](https://dev.to/nikhil_bisht_a8b58d0cb04a/turning-solo-ai-coding-agents-into-247-incident-teammates-building-switchops-with-switch-55bl)
+[![Medium Story](https://img.shields.io/badge/Medium-Read%20on%20Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@nikhilbisht.301/discord-bridge-active-turning-solo-ai-coding-agents-into-24-7-incident-teammates-building-78e54c0bc5d5)
 [![Switch Powered](https://img.shields.io/badge/Switch-Agent%20Protocol%20v1.0-059669?style=for-the-badge&logo=switch&logoColor=white)](https://docs.switchagents.ai/)
 [![Wispr Flow](https://img.shields.io/badge/Wispr%20Flow-Voice%20Command%20Verified-8B5CF6?style=for-the-badge&logo=soundcharts&logoColor=white)](https://www.wisprflow.ai/)
 [![Multi-Bridge Ready](https://img.shields.io/badge/Bridges-Slack%20%7C%20Teams%20%7C%20Discord-2563EB?style=for-the-badge)](https://github.com/sandbox-quantum/switch)
@@ -195,9 +197,19 @@ switchops/
 ├── switch_agent_worker.py          # Standalone Python agent worker listening on SSE
 ├── start_switchops.bat             # 1-click Windows launcher
 ├── vercel.json                     # Instant cloud deploy configuration
-├── BLOG.md                         # Full-length article for Best Blog Track (AirPods 5)
-├── SOCIAL_POSTS.md                 # #HowISwitch social posts & threads
-└── README.md                       # Hackathon documentation & submission guide
+├── .vercelignore                   # Vercel deployment payload filter
+├── .gitignore                      # Airtight Ponytail method security filter
+├── SECURITY.md                     # Zero-leak security policy & disclosure
+├── LICENSE                         # MIT open-source license
+├── SUBMISSION_ANSWERS.md           # Official hackathon form submission copy
+├── BLOG_DEVTO.md                   # Dev.to published article
+├── BLOG_MEDIUM.md                  # Medium published article
+├── LINKEDIN_POST.md                # #HowISwitch verified LinkedIn copy
+├── SOCIAL_POSTS.md                 # Multi-platform launch threads (X, Discord, Slack)
+├── switchops_youtube_captions.srt  # SubRip timed caption file for YouTube
+├── switchops_youtube_captions.vtt  # WebVTT caption file for video players
+├── blog_images/                    # 10 crisp architecture diagrams & screenshots
+└── README.md                       # Comprehensive hackathon documentation
 ```
 
 ---
